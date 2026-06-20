@@ -1,0 +1,409 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+  /* 🌈 Global Styles */
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at center, #071a29 0%, #020d18 100%);
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-weight: 700;
+  }
+
+  section {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #071a29 0%, #020d18 100%);
+  padding: 5px 0; /* ⬅ Reduced top & bottom spacing */
+}
+
+
+  /* 🌟 Hero Section */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
+                radial-gradient(circle at center, #071a29 0%, #020d18 100%);
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    color: #00c6ff;
+  }
+
+  .hero p {
+    max-width: 700px;
+    margin: auto;
+  }
+
+  .hero-content {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 0 25px rgba(0,198,255,0.2);
+    transition: 0.4s;
+    max-width: 700px;
+    margin: auto;
+  }
+
+  .hero-content:hover {
+    box-shadow: 0 0 40px rgba(0,198,255,0.4);
+    transform: translateY(-5px);
+  }
+
+  textarea {
+    resize: none;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #fff;
+  }
+
+  .btn-detect {
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 8px;
+    transition: 0.3s;
+  }
+
+  .btn-detect:hover {
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    box-shadow: 0 0 20px #00c6ff;
+    transform: translateY(-2px);
+  }
+
+  /* 💬 Result Box */
+  .result-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-left: 5px solid #00c6ff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 30px;
+  }
+
+  /* ✨ Floating Icons Animation */
+  .floating-icon {
+    position: absolute;
+    font-size: 50px;
+    opacity: 0.15;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  /* 📊 Info Section */
+  .info-section {
+    background: radial-gradient(circle at center, #071a29 0%, #020d18 100%);
+    padding: 40px 0;
+  }
+
+  .info-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 30px;
+    transition: 0.4s;
+  }
+
+  .info-card:hover {
+    box-shadow: 0 0 30px rgba(0,198,255,0.3);
+    transform: translateY(-8px);
+  }
+
+  .info-card img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+  }
+
+  /* 💡 AI Illustration Section */
+  .ai-section {
+    background: radial-gradient(circle at center, #071a29 0%, #020d18 100%);
+    color: #fff;
+    padding: 100px 0;
+  }
+
+  .ai-section img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(0,198,255,0.2);
+  }
+
+  /* 🌍 Why Choose Us Section */
+  .choose-section {
+    background: radial-gradient(circle at center, #071a29 0%, #020d18 100%);
+    padding: 100px 0;
+  }
+
+  .choose-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+    padding: 30px;
+    border-radius: 15px;
+    transition: 0.4s;
+  }
+
+  .choose-box:hover {
+    box-shadow: 0 0 30px rgba(0,198,255,0.3);
+    transform: translateY(-8px);
+  }
+
+  .choose-box i {
+    font-size: 50px;
+    color: #00c6ff;
+    margin-bottom: 20px;
+  }
+
+  /* 🚀 CTA Section */
+  .cta {
+    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
+                radial-gradient(circle at center, #071a29 0%, #020d18 100%);
+    background-attachment: fixed;
+    padding: 100px 20px;
+    text-align: center;
+  }
+
+  .cta h2 {
+    color: #00c6ff;
+  }
+
+  .cta p {
+    color: #ddd;
+    max-width: 600px;
+    margin: 20px auto;
+  }
+</style>
+
+<!-- 🧠 Hero Section -->
+<section class="hero">
+  <i class="bi bi-envelope-fill floating-icon" style="top:10%; left:5%;"></i>
+  <i class="bi bi-shield-lock-fill floating-icon" style="bottom:15%; right:10%; animation-delay:2s;"></i>
+  <i class="bi bi-robot floating-icon" style="top:60%; left:20%; animation-delay:1s;"></i>
+
+  <div class="hero-content">
+    <h1>AI Spam Message Detector</h1>
+    <p class="mb-4">Paste any text or email below — our AI will instantly detect if it’s <strong>Spam</strong> or <strong>Not Spam</strong>.</p>
+
+    <form action="{{ url_for('predict') }}" method="post">
+      <textarea class="form-control p-3 mb-4 shadow-sm" name="message" rows="5" placeholder="Type your message..." required></textarea>
+      <button type="submit" class="btn btn-detect fw-semibold">🔍 Detect Spam</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result-box mt-4">
+      <h4>Result:</h4>
+      <p class="fs-5"><strong>{{ prediction }}</strong></p>
+      <p class="text-light"><em>Your message:</em> "{{ message }}"</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- 📊 Info Section -->
+<section style="position: relative; overflow: hidden; background: radial-gradient(circle at center, #071a29 0%, #020d18 100%); padding: 60px 0; text-align: center;">
+  <div class="container">
+    <h2 style="color:#00c6ff; font-size:2.3rem; font-weight:800; text-shadow:0 0 20px rgba(0,198,255,0.4); margin-bottom:50px; animation:fadeInDown 1s ease;">
+      How <span style="color:#fff;">SpamGuard</span> AI Works
+    </h2>
+
+    <div class="row g-4" style="display:flex; flex-wrap:wrap; justify-content:center; gap:25px;">
+      
+      <!-- Card 1 -->
+      <div class="col-md-4" style="flex:1 1 270px; max-width:300px; animation:fadeInUp 1s ease;">
+        <div class="ai-box" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:25px 20px; min-height:320px; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; transition:0.4s; box-shadow:0 0 20px rgba(0,198,255,0.05);">
+          <img src="static/images/accuracy.jpg" alt="Accuracy" style="width:90px; height:90px; object-fit:contain; margin-bottom:15px; border-radius:50%; box-shadow:0 0 20px rgba(0,198,255,0.3); transition:transform 0.4s ease, box-shadow 0.4s ease;">
+          <h4 style="font-weight:700; color:#00c6ff; margin-top:10px;">📈 99% Accuracy</h4>
+          <p style="font-size:15px; color:#ccc;">Trained with thousands of messages using advanced NLP and logistic regression models.</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-md-4" style="flex:1 1 270px; max-width:300px; animation:fadeInUp 1.2s ease;">
+        <div class="ai-box" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:25px 20px; min-height:320px; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; transition:0.4s; box-shadow:0 0 20px rgba(0,198,255,0.05);">
+          <img src="static/images/realtime.jpg" alt="Real-Time Detection" style="width:90px; height:90px; object-fit:contain; margin-bottom:15px; border-radius:50%; box-shadow:0 0 20px rgba(0,198,255,0.3); transition:transform 0.4s ease, box-shadow 0.4s ease;">
+          <h4 style="font-weight:700; color:#00c6ff; margin-top:10px;">⚡ Real-Time Detection</h4>
+          <p style="font-size:15px; color:#ccc;">Instantly detects spam and shows results in milliseconds — no lag or refresh needed.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-md-4" style="flex:1 1 270px; max-width:300px; animation:fadeInUp 1.4s ease;">
+        <div class="ai-box" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:25px 20px; min-height:320px; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; transition:0.4s; box-shadow:0 0 20px rgba(0,198,255,0.05);">
+          <img src="static/images/ai-learn.jpg" alt="Continuous Learning" style="width:90px; height:90px; object-fit:contain; margin-bottom:15px; border-radius:50%; box-shadow:0 0 20px rgba(0,198,255,0.3); transition:transform 0.4s ease, box-shadow 0.4s ease;">
+          <h4 style="font-weight:700; color:#00c6ff; margin-top:10px;">🧠 Continuous Learning</h4>
+          <p style="font-size:15px; color:#ccc;">AI improves daily by analyzing new spam trends and evolving its detection patterns.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ✨ Animation and Hover Styles -->
+<style>
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  0% { opacity: 0; transform: translateY(-40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.ai-box:hover {
+  box-shadow: 0 0 40px rgba(0,198,255,0.4);
+  transform: translateY(-8px);
+}
+
+.ai-box:hover img {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(0,198,255,0.6);
+}
+</style>
+
+
+<!-- 🤖 AI Illustration Section -->
+<section style="position:relative; overflow:hidden; background:radial-gradient(circle at center, #071a29 0%, #020d18 100%); padding:60px 0;">
+  <div class="container" style="max-width:1200px;">
+    <div class="row align-items-center g-5" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center;">
+      
+      <!-- Left Image -->
+      <div class="col-md-6" style="flex:1; text-align:center;">
+        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:25px; box-shadow:0 0 30px rgba(0,198,255,0.15); display:inline-block; transition:0.4s;">
+          <img src="static/images/ai-detect.jpg" alt="AI Detect" style="width:100%; max-width:420px; border-radius:15px; box-shadow:0 0 25px rgba(0,198,255,0.25); transition:0.4s;">
+        </div>
+      </div>
+
+      <!-- Right Text -->
+      <div class="col-md-6" style="flex:1; color:#fff; padding:10px 30px;">
+        <h2 style="color:#00c6ff; font-weight:700; margin-bottom:20px; text-shadow:0 0 10px rgba(0,198,255,0.4);">
+          ⚙️ Advanced AI in Action
+        </h2>
+        <p style="color:#ccc; line-height:1.7; font-size:16px;">
+          Our AI model goes beyond basic keyword filtering — it analyzes sentence structure, tone, and hidden manipulative patterns to identify spam with remarkable precision. Every detection makes SpamGuard smarter and faster.
+        </p>
+        <ul style="color:#bdeaff; margin-top:15px; list-style:none; padding-left:0; font-size:16px;">
+          <li style="margin-bottom:10px;">✨ <strong>Natural Language Processing</strong></li>
+          <li style="margin-bottom:10px;">🤖 <strong>Sentiment & Intent Analysis</strong></li>
+          <li>🧠 <strong>Adaptive Machine Learning</strong></li>
+        </ul>
+
+        <!-- CTA Button -->
+        <a href="{{ url_for('contact') }}" target="_blank" style="text-decoration:none;">
+          <button 
+            style="margin-top:20px; background:linear-gradient(90deg, #00c6ff, #0072ff); border:none; color:#fff; padding:10px 28px; border-radius:8px; font-weight:600; cursor:pointer; box-shadow:0 0 15px rgba(0,198,255,0.3); transition:all 0.3s ease;"
+            onmouseover="this.style.background='linear-gradient(90deg, #0072ff, #00c6ff)'; this.style.boxShadow='0 0 25px rgba(0,198,255,0.6)';"
+            onmouseout="this.style.background='linear-gradient(90deg, #00c6ff, #0072ff)'; this.style.boxShadow='0 0 15px rgba(0,198,255,0.3)';"
+          >
+            Explore AI Power
+          </button>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- 🌍 Why Choose Us -->
+<section style="background:radial-gradient(circle at center, #071a29 0%, #020d18 100%); padding:60px 0; text-align:center; overflow:hidden;">
+  <div class="container">
+    <h2 style="color:#00c6ff; font-size:2.5rem; font-weight:800; text-shadow:0 0 20px rgba(0,198,255,0.4); margin-bottom:50px; animation:fadeInDown 1s ease;">
+      🚀 <span style="color:#fff;">Why Choose</span> <span style="color:#00c6ff;">SpamGuard?</span>
+    </h2>
+
+    <div class="row g-4" style="display:flex; flex-wrap:wrap; justify-content:center; gap:25px;">
+      
+      <!-- Card 1 -->
+      <div class="col-md-3" style="flex:1 1 250px; max-width:270px; animation:fadeInUp 1s ease;">
+        <div class="choose-box" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:25px; transition:0.4s; box-shadow:0 0 20px rgba(0,198,255,0.05);">
+          <img src="https://i.pinimg.com/1200x/e8/fa/0c/e8fa0c0ed7a8e2611bb108d68def6238.jpg" alt="Reliable Detection" style="width:90px; height:90px; border-radius:50%; object-fit:cover; margin-bottom:15px; box-shadow:0 0 20px rgba(0,198,255,0.3); transition:transform 0.4s ease, box-shadow 0.4s ease;">
+          <h5 style="color:#00c6ff; font-weight:700;">Reliable Detection</h5>
+          <p style="color:#ccc; font-size:0.95rem;">Built with top NLP algorithms trusted by cybersecurity professionals.</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-md-3" style="flex:1 1 250px; max-width:270px; animation:fadeInUp 1.2s ease;">
+        <div class="choose-box" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:25px; transition:0.4s; box-shadow:0 0 20px rgba(0,198,255,0.05);">
+          <img src="https://i.pinimg.com/736x/62/1e/b5/621eb562177335d5642847da9e9ac6a3.jpg" alt="Lightning Fast" style="width:90px; height:90px; border-radius:50%; object-fit:cover; margin-bottom:15px; box-shadow:0 0 20px rgba(0,198,255,0.3); transition:transform 0.4s ease, box-shadow 0.4s ease;">
+          <h5 style="color:#00c6ff; font-weight:700;">Lightning Fast</h5>
+          <p style="color:#ccc; font-size:0.95rem;">Scans and reports within milliseconds, even for large email texts.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-md-3" style="flex:1 1 250px; max-width:270px; animation:fadeInUp 1.4s ease;">
+        <div class="choose-box" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:25px; transition:0.4s; box-shadow:0 0 20px rgba(0,198,255,0.05);">
+          <img src="https://i.pinimg.com/736x/c2/09/1e/c2091e85cd598d14974fda26f2a3b827.jpg" alt="Privacy Focused" style="width:90px; height:90px; border-radius:50%; object-fit:cover; margin-bottom:15px; box-shadow:0 0 20px rgba(0,198,255,0.3); transition:transform 0.4s ease, box-shadow 0.4s ease;">
+          <h5 style="color:#00c6ff; font-weight:700;">Privacy Focused</h5>
+          <p style="color:#ccc; font-size:0.95rem;">Your messages are never stored — all detection happens locally.</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="col-md-3" style="flex:1 1 250px; max-width:270px; animation:fadeInUp 1.6s ease;">
+        <div class="choose-box" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:25px; transition:0.4s; box-shadow:0 0 20px rgba(0,198,255,0.05);">
+          <img src="https://i.pinimg.com/1200x/6f/8b/2c/6f8b2cbcd63d9e8547a120de17b54ca6.jpg" alt="Trusted & Secure" style="width:90px; height:90px; border-radius:50%; object-fit:cover; margin-bottom:15px; box-shadow:0 0 20px rgba(0,198,255,0.3); transition:transform 0.4s ease, box-shadow 0.4s ease;">
+          <h5 style="color:#00c6ff; font-weight:700;">Trusted & Secure</h5>
+          <p style="color:#ccc; font-size:0.95rem;">Developed using ethical AI principles and verified open-source datasets.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ✨ Animation Styles -->
+<style>
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  0% { opacity: 0; transform: translateY(-40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Hover glow + lift */
+.choose-box:hover {
+  box-shadow: 0 0 40px rgba(0,198,255,0.4);
+  transform: translateY(-8px);
+}
+
+.choose-box:hover img {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(0,198,255,0.6);
+}
+</style>
+
+
+<!-- 🚀 CTA Section -->
+<section class="cta" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/03/97/26/039726e2501f16cb87246fe1db88415d.jpg') center/cover no-repeat; padding: 80px 0; text-align: center; color: #fff;">
+  <div class="container">
+    <h2 style="font-size: 2.2rem; font-weight: 800; color: #00c6ff;">Stay Safe from Spam Scams!</h2>
+    <p style="font-size: 1.1rem; color: #e0e0e0; margin-top: 10px;">Try out SpamGuard AI today — defend your inbox and protect your data from phishing and fraudulent messages.</p>
+    <a href="{{ url_for('about') }}" class="btn btn-info btn-lg px-5 mt-3 shadow-lg" style="border-radius: 12px; font-weight: 600;">Learn More →</a>
+  </div>
+</section>
+
+
+{% endblock %}

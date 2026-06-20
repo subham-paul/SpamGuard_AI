@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}SpamGuard AI{% endblock %}</title>
+
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ===========================================================
+   GLOBAL VARIABLES
+=========================================================== */
+:root{
+  --neon: #00c6ff;
+  --neon2: #0072ff;
+  --accent: #00ffae;
+  --dark: #01050e;
+  --glass: rgba(255,255,255,0.06);
+  --brd: rgba(255,255,255,0.12);
+}
+
+/* Remove ALL gaps left/right */
+body, html {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100vw !important;
+  overflow-x: hidden !important;
+  background: #000;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===========================================================
+   >>> FIX: FORCE LEFT + RIGHT GAP FOR NAVBAR <<<
+=========================================================== */
+.navbar > .container-fluid,
+.navbar .container-fluid {
+  padding-left: 50px !important;
+  padding-right: 50px !important;
+}
+
+/* ===========================================================
+   ANIMATED SHIELD LOGO
+=========================================================== */
+.logo-anim {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(0,255,255,0.06);
+  border: 2px solid var(--neon);
+  box-shadow: 0 0 18px var(--neon);
+  animation: pulseShield 2.4s infinite ease-in-out, glowSpin 5.5s infinite linear;
+}
+
+.logo-anim i {
+  font-size: 1.35rem;
+  color: var(--neon);
+  text-shadow: 0 0 12px var(--neon);
+}
+
+@keyframes pulseShield {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 18px var(--neon); }
+  50% { transform: scale(1.13); box-shadow: 0 0 32px var(--neon); }
+}
+
+@keyframes glowSpin {
+  0% { filter: drop-shadow(0 0 6px var(--neon)); transform: rotate(0deg); }
+  100% { filter: drop-shadow(0 0 16px var(--neon)); transform: rotate(360deg); }
+}
+
+/* ===========================================================
+   NAVBAR
+=========================================================== */
+.navbar {
+  width: 100%;
+  padding: 8px 0;
+  background: rgba(0, 8, 20, 0.45);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,255,255,0.15);
+  transition: 0.35s ease;
+}
+
+.navbar:hover {
+  background: rgba(0, 15, 35, 0.75);
+  border-bottom: 1px solid var(--neon);
+  box-shadow: 0 0 25px rgba(0,255,255,0.4);
+}
+
+.navbar-brand {
+  font-weight: 800;
+  color: var(--neon) !important;
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  color: #d9f6ff !important;
+  margin: 0 10px;
+  font-weight: 500;
+  transition: 0.3s;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--neon) !important;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 0%;
+  background: var(--neon);
+  transition: 0.4s;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ===========================================================
+   MAIN CONTENT
+=========================================================== */
+.main-wrapper {
+  padding: 0;
+  width: 100%;
+  margin: 0;
+}
+
+/* ===========================================================
+   BACK TO TOP BUTTON
+=========================================================== */
+#backToTop {
+  position: fixed;
+  right: 20px;
+  bottom: 25px;
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, var(--neon), var(--neon2));
+  border-radius: 14px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-size: 1.4rem;
+  cursor: pointer;
+  box-shadow: 0 0 25px var(--neon);
+  animation: floatUp 3s infinite ease-in-out;
+  z-index: 9999;
+}
+
+@keyframes floatUp {
+  0%,100%{ transform: translateY(0);}
+  50%{ transform: translateY(-8px);}
+}
+
+/* ===========================================================
+   FOOTER — CYBERWAVE SVG + ANIMATIONS
+   Changed only footer CSS/markup per request.
+=========================================================== */
+
+footer {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg, rgba(0,3,8,0.98) 0%, rgba(0,6,12,0.98) 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated moving gradient overlay */
+.footer-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(0,198,255,0.06), rgba(0,114,255,0.03), rgba(0,255,170,0.02));
+  mix-blend-mode: screen;
+  z-index: 1;
+  animation: gradShift 18s linear infinite;
+  pointer-events: none;
+  opacity: .9;
+}
+@keyframes gradShift {
+  0% { transform: translateX(0) translateY(0) scale(1); filter: hue-rotate(0deg); }
+  50% { transform: translateX(-8%) translateY(2%) scale(1.05); filter: hue-rotate(15deg); }
+  100% { transform: translateX(0) translateY(0) scale(1); filter: hue-rotate(0deg); }
+}
+
+/* SVG neon wave wrapper */
+.footer-wave-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -30px;
+  height: 160px;
+  z-index: 2;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* SVG style - neon stroke and glow */
+.footer-wave svg {
+  display: block;
+  width: 200%;
+  height: 160px;
+  transform: translateX(-25%);
+  filter: drop-shadow(0 6px 18px rgba(0,198,255,0.18)) blur(0.2px);
+}
+
+/* stroke animations: main line + faint trail */
+.wave-line {
+  stroke: url(#neonGrad);
+  stroke-width: 3.4;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1600;
+  stroke-dashoffset: 0;
+  animation: dashMove 6.8s linear infinite;
+  opacity: .98;
+}
+
+.wave-glow {
+  stroke: rgba(0,198,255,0.14);
+  stroke-width: 18;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: blur(10px);
+  opacity: 0.35;
+  animation: glowPulse 7.5s ease-in-out infinite;
+}
+
+@keyframes dashMove {
+  0% { stroke-dashoffset: 0; transform: translateX(0); }
+  50% { stroke-dashoffset: 800; transform: translateX(-8%); }
+  100% { stroke-dashoffset: 1600; transform: translateX(-16%); }
+}
+@keyframes glowPulse {
+  0% { opacity: .28; transform: translateY(0); }
+  50% { opacity: .65; transform: translateY(-6px); }
+  100% { opacity: .28; transform: translateY(0); }
+}
+
+/* Floating neon particles within footer */
+.footer-particles {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  height: 160px;
+  z-index: 3;
+  pointer-events: none;
+}
+.footer-particles .p {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(0,198,255,0.9));
+  box-shadow: 0 0 10px rgba(0,198,255,0.35);
+  opacity: 0;
+  transform: translateY(30px) scale(.6);
+  animation: rise 9s linear infinite;
+}
+@keyframes rise {
+  0% { opacity: 0; transform: translateY(30px) scale(.6); }
+  10% { opacity: 1; transform: translateY(0) scale(1); }
+  80% { opacity: 1; transform: translateY(-60px) scale(0.95); }
+  100% { opacity: 0; transform: translateY(-120px) scale(.6); }
+}
+
+/* footer content glass */
+.footer-glass {
+  position: relative;
+  z-index: 4;
+  padding: 56px 24px 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.012));
+  border-top: 1px solid rgba(0,198,255,0.04);
+  backdrop-filter: blur(6px);
+}
+
+/* layout for footer columns */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+  justify-items: stretch;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Brand area */
+.footer-brand h3 { color: var(--neon); margin-bottom: 8px; }
+.footer-brand p { color: #cceeff; margin-bottom: 12px; line-height: 1.45; }
+
+/* quick-links */
+.quick-links h5 { color: #dff9ff; margin-bottom: 12px; }
+.quick-links ul { list-style: none; padding: 0; margin: 0; }
+.quick-links li { margin-bottom: 8px; }
+.quick-links a {
+  color: #bfefff;
+  text-decoration: none;
+  transition: color .2s, transform .12s;
+}
+.quick-links a:hover { color: var(--neon); transform: translateX(6px); }
+
+/* contact / subscribe column */
+.footer-contact h5 { color: #dff9ff; margin-bottom: 12px; }
+.footer-contact p { color: #cdeeff; margin-bottom: 10px; }
+
+.footer-socials .social-icon {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  color: var(--neon);
+  font-size: 1.1rem;
+  margin-right: 8px;
+  transition: 0.25s;
+  box-shadow: 0 0 10px rgba(0,198,255,0.08);
+}
+.footer-socials .social-icon:hover {
+  transform: translateY(-6px) scale(1.06);
+  box-shadow: 0 0 25px rgba(0,198,255,0.3);
+  background: rgba(0,198,255,0.06);
+}
+
+/* bottom row */
+.footer-bottom {
+  text-align: center;
+  padding: 14px 20px;
+  font-size: 0.9rem;
+  color: #9cdfff;
+  border-top: 1px solid rgba(0,198,255,0.04);
+  margin-top: 18px;
+  z-index: 4;
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 18px; }
+  .footer-wave-wrap { display: none; } /* hide heavy wave on small screens for performance */
+}
+@media (max-width: 480px) {
+  .footer-glass { padding: 28px 14px 12px; }
+}
+
+/* ===========================================================
+   FLASH MESSAGES 
+=========================================================== */
+.flash-msg {
+  position: fixed;
+  top: 85px;
+  right: 20px;
+  background: rgba(0,255,255,0.12);
+  border-left: 4px solid var(--neon);
+  padding: 10px 20px;
+  border-radius: 10px;
+  z-index: 9999;
+  color: white;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(-10px);}
+  to { opacity:1; transform:translateY(0);}
+}
+</style>
+
+{% block head_extra %}{% endblock %}
+
+</head>
+<body>
+
+<!-- ===========================================================
+     NAVBAR
+=========================================================== -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+
+    <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('index') }}">
+      <div class="logo-anim">
+        <i class="bi bi-shield-shaded"></i>
+      </div>
+      <span>SpamGuard AI</span>
+    </a>
+
+    <button class="navbar-toggler text-light" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list" style="font-size:1.8rem;"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('form') }}">Detect</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<!-- FLASH MESSAGE -->
+<div id="flashArea">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, msg in messages %}
+        <div class="flash-msg">{{ msg }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+</div>
+
+<!-- ===========================================================
+     MAIN CONTENT
+=========================================================== -->
+<div class="main-wrapper">
+  {% block content %}{% endblock %}
+</div>
+
+<!-- ===========================================================
+     BACK TO TOP BUTTON
+=========================================================== -->
+<div id="backToTop"><i class="bi bi-chevron-up"></i></div>
+
+<!-- ===========================================================
+     FOOTER (FULL UPDATED)
+     - SVG animated neon waveform
+     - Moving gradient overlay
+     - Floating particles
+     - Quick Links + Contact
+=========================================================== -->
+<footer>
+  <!-- Animated overlay gradient -->
+  <div class="footer-gradient" aria-hidden="true"></div>
+
+  <!-- wave svg -->
+  <div class="footer-wave-wrap">
+    <div class="footer-wave">
+      <svg viewBox="0 0 1600 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="neonGrad" x1="0%" x2="100%">
+            <stop offset="0%" stop-color="#00eaff"/>
+            <stop offset="50%" stop-color="#00ffae"/>
+            <stop offset="100%" stop-color="#0072ff"/>
+          </linearGradient>
+        </defs>
+
+        <!-- faint glow trail -->
+        <path class="wave-glow" d="M0,100 C160,80 320,40 480,60 C640,80 800,120 960,100 C1120,80 1280,40 1440,60 C1550,74 1600,70 1600,70" transform="translate(0,0)"></path>
+
+        <!-- neon animated line -->
+        <path class="wave-line" d="M0,98 C160,78 320,38 480,58 C640,78 800,118 960,98 C1120,78 1280,38 1440,58 C1550,72 1600,68 1600,68" transform="translate(0,0)"></path>
+      </svg>
+    </div>
+  </div>
+
+  <!-- particles -->
+  <div class="footer-particles" aria-hidden="true"></div>
+
+  <div class="footer-glass">
+    <div class="footer-grid">
+      <!-- BRAND / ABOUT -->
+      <div class="footer-brand">
+        <h3 class="fw-bold">SpamGuard AI</h3>
+        <p>AI-powered spam detection that keeps your inbox safe. Fast, private and continuously improving.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-icon me-2"><i class="bi bi-github"></i></a>
+          <a href="#" class="social-icon me-2"><i class="bi bi-linkedin"></i></a>
+          <a href="mailto:contact@spamguard.ai" class="social-icon"><i class="bi bi-envelope-fill"></i></a>
+        </div>
+      </div>
+
+      <!-- QUICK LINKS -->
+      <div class="quick-links">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('form') }}">Detect</a></li>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact</a></li>
+          <li><a href="{{ url_for('form') }}">Try Demo</a></li>
+        </ul>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="footer-contact">
+        <h5>Contact</h5>
+        <p><i class="bi bi-geo-alt-fill"></i> New Delhi, India</p>
+        <p><i class="bi bi-telephone-fill"></i> +91 98765 43210</p>
+        <p><i class="bi bi-envelope-fill"></i> contact@spamguard.ai</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © {{ now().year if now is defined else "2025" }} SpamGuard AI — All Rights Reserved
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+/* Back to top logic */
+window.addEventListener("scroll", () => {
+  document.getElementById("backToTop").style.display =
+    window.scrollY > 300 ? "flex" : "none";
+});
+
+document.getElementById("backToTop").onclick = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+/* Auto hide flash */
+setTimeout(() => {
+  document.querySelectorAll(".flash-msg").forEach(e => e.remove());
+}, 3500);
+
+/* ----------------------------
+   Particles: spawn some floating neon dots
+   Lightweight: generate a few nodes with staggered timings
+   ---------------------------- */
+(function spawnFooterParticles() {
+  const container = document.querySelector('.footer-particles');
+  if (!container) return;
+
+  const count = 12;
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.className = 'p';
+    // random horizontal position across footer width
+    const left = Math.random() * 100;
+    el.style.left = `${left}%`;
+    // random delay and duration
+    const delay = Math.random() * 6;
+    el.style.animationDelay = `${delay}s`;
+    el.style.width = `${6 + Math.random()*8}px`;
+    el.style.height = el.style.width;
+    el.style.opacity = 0;
+    // staggered vertical starting offset
+    el.style.bottom = `${5 + Math.random()*40}px`;
+    container.appendChild(el);
+  }
+})();
+
+/* ----------------------------
+   Subtle continuous transform on SVG wave to enhance motion (no heavy math)
+   ---------------------------- */
+(function animateFooterWave() {
+  const wave = document.querySelector('.footer-wave svg');
+  if (!wave) return;
+  let t = 0;
+  function frame() {
+    t += 0.006;
+    // small horizontal oscillation + vertical bob for parallax
+    const tx = Math.sin(t * 0.9) * 6; // px
+    const ty = Math.cos(t * 0.6) * 3; // px
+    wave.style.transform = `translateX(${ -25 - tx }%) translateY(${ty}px)`;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

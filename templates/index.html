@@ -1,0 +1,831 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- 🌟 HERO SECTION -->
+<div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+  <div class="carousel-inner">
+
+    {% for i in range(1, 6) %}
+    <div class="carousel-item {% if i == 1 %}active{% endif %}">
+      <img src="{{ url_for('static', filename='images/carousel' ~ i ~ '.jpg') }}" 
+           class="d-block w-100 hero-img" alt="Slide {{ i }}">
+      <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 text-center">
+        {% if i == 1 %}
+          <h1 class="fw-bold text-info display-3">Welcome to <span class="text-light">SpamGuard</span></h1>
+          <p class="fs-5 mt-3">Detect and prevent spam messages instantly with AI precision.</p>
+          <a href="{{ url_for('form') }}" class="btn hero-btn mt-4">Try Now</a>
+        {% elif i == 2 %}
+          <h1 class="fw-bold text-info display-3">Smart. Secure. Simple.</h1>
+          <p class="fs-5 mt-3">AI-powered NLP model that learns and improves continuously.</p>
+          <a href="{{ url_for('form') }}" class="btn btn-outline-info hero-btn mt-4">Learn More</a>
+        {% elif i == 3 %}
+          <h1 class="fw-bold text-info display-3">Stay Protected 24/7</h1>
+          <p class="fs-5 mt-3">Your data and privacy are our top priority — always.</p>
+          <a href="{{ url_for('form') }}" class="btn hero-btn mt-4">Get Started</a>
+        {% elif i == 4 %}
+          <h1 class="fw-bold text-info display-3">Real-time Monitoring</h1>
+          <p class="fs-5 mt-3">Instantly detect and block malicious activity in real-time.</p>
+          <a href="{{ url_for('form') }}" class="btn btn-outline-info hero-btn mt-4">Monitor Now</a>
+        {% else %}
+          <h1 class="fw-bold text-info display-3">Fast. Reliable. Intelligent.</h1>
+          <p class="fs-5 mt-3">Experience lightning-fast spam detection with AI-driven accuracy.</p>
+          <a href="{{ url_for('form') }}" class="btn hero-btn mt-4">Try Demo</a>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+
+  <!-- Controls -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+<!-- 🌈 HERO SECTION CSS -->
+<style>
+  #heroCarousel {
+    margin-top: 0px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-img {
+    height: 87vh;
+    object-fit: cover;
+    filter: brightness(0.3);
+  }
+
+  .carousel-caption h1, .carousel-caption p {
+    text-shadow: 0 2px 25px rgba(0, 0, 0, 0.8);
+  }
+
+  .hero-btn {
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    padding: 10px 30px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .hero-btn:hover {
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    box-shadow: 0 0 20px rgba(0, 198, 255, 0.6);
+    transform: translateY(-2px);
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    filter: invert(1) drop-shadow(0 0 5px #00c6ff);
+  }
+
+  @media (max-width: 768px) {
+    .carousel-caption h1 { font-size: 2rem; }
+    .carousel-caption p { font-size: 1rem; }
+  }
+</style>
+
+
+
+<!-- 💡 WHY CHOOSE SPAMGUARD SECTION -->
+<section class="why-choose py-5 bg-dark text-light">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-4 text-info">Why Choose <span class="text-light">SpamGuard?</span></h2>
+    <p class="mb-5 text-secondary fs-5">SpamGuard combines AI intelligence, security, and simplicity to protect your communication every step of the way.</p>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card p-4 h-100">
+          <div class="icon mb-3"><i class="bi bi-cpu"></i></div>
+          <h5 class="fw-bold mb-2">AI-Powered Detection</h5>
+          <p class="text-secondary mb-0">Our NLP model learns from millions of messages to detect spam with 99% accuracy.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card p-4 h-100">
+          <div class="icon mb-3"><i class="bi bi-shield-lock"></i></div>
+          <h5 class="fw-bold mb-2">Secure & Reliable</h5>
+          <p class="text-secondary mb-0">Your data stays encrypted and never leaves your private environment.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card p-4 h-100">
+          <div class="icon mb-3"><i class="bi bi-graph-up-arrow"></i></div>
+          <h5 class="fw-bold mb-2">Continuous Improvement</h5>
+          <p class="text-secondary mb-0">SpamGuard’s machine learning models evolve daily to stay ahead of new spam trends.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 💅 WHY CHOOSE STYLES -->
+<style>
+  .why-choose {
+    background: radial-gradient(circle at center, #0b0f1a 0%, #020408 100%);
+  }
+
+  .feature-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-6px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #00c6ff;
+    box-shadow: 0 0 20px rgba(0, 198, 255, 0.3);
+  }
+
+  .feature-card .icon {
+    font-size: 2.8rem;
+    color: #00c6ff;
+  }
+
+  @media (max-width: 768px) {
+    .feature-card { padding: 2rem 1rem; }
+  }
+</style>
+
+
+
+
+<!-- ⚙️ HOW IT WORKS SECTION -->
+<section class="how-it-works py-5 text-center text-light">
+  <div class="container">
+    <h2 class="fw-bold mb-4 text-info">How <span class="text-light">It Works</span></h2>
+    <p class="text-secondary mb-5 fs-5">SpamGuard simplifies spam detection into three intelligent steps — from input to protection.</p>
+
+    <div class="row justify-content-center align-items-center g-4">
+      
+      <div class="col-md-3">
+        <div class="step-card">
+          <div class="step-icon"><i class="bi bi-envelope"></i></div>
+          <h5 class="fw-bold mt-3">1. Input Message</h5>
+          <p class="text-secondary">Enter or receive a message through our intuitive interface or API integration.</p>
+        </div>
+      </div>
+
+      <div class="col-md-1 d-none d-md-block">
+        <i class="bi bi-arrow-right-circle-fill step-arrow"></i>
+      </div>
+
+      <div class="col-md-3">
+        <div class="step-card">
+          <div class="step-icon"><i class="bi bi-brain"></i></div>
+          <h5 class="fw-bold mt-3">2. AI Analysis</h5>
+          <p class="text-secondary">Our AI model processes the message using NLP and classifies it as spam or safe.</p>
+        </div>
+      </div>
+
+      <div class="col-md-1 d-none d-md-block">
+        <i class="bi bi-arrow-right-circle-fill step-arrow"></i>
+      </div>
+
+      <div class="col-md-3">
+        <div class="step-card">
+          <div class="step-icon"><i class="bi bi-shield-check"></i></div>
+          <h5 class="fw-bold mt-3">3. Protection</h5>
+          <p class="text-secondary">SpamGuard blocks spam instantly while allowing safe messages to pass through.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 🎨 HOW IT WORKS STYLES -->
+<style>
+  .how-it-works {
+    background: linear-gradient(180deg, #0a0e17 0%, #020408 100%);
+  }
+
+  .step-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    height: 100%;
+  }
+
+  .step-card:hover {
+    transform: translateY(-8px);
+    border-color: #00c6ff;
+    box-shadow: 0 0 25px rgba(0, 198, 255, 0.25);
+  }
+
+  .step-icon {
+    font-size: 3rem;
+    color: #00c6ff;
+  }
+
+  .step-arrow {
+    font-size: 2rem;
+    color: #00c6ff;
+    opacity: 0.8;
+    animation: pulseArrow 2s infinite;
+  }
+
+  @keyframes pulseArrow {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.2); opacity: 1; }
+  }
+
+  @media (max-width: 768px) {
+    .step-arrow { display: none; }
+    .step-card { margin-bottom: 1.5rem; }
+  }
+</style>
+
+
+<!-- 📊 OUR ACCURACY SECTION -->
+<section class="accuracy py-5 text-center text-light">
+  <div class="container">
+    <h2 class="fw-bold mb-4 text-info">Our <span class="text-light">Accuracy</span></h2>
+    <p class="text-secondary mb-5 fs-5">SpamGuard’s AI-driven detection model delivers cutting-edge accuracy and reliability tested on real-world data.</p>
+
+    <div class="row g-4">
+      <!-- Metric 1 -->
+      <div class="col-md-3 col-6">
+        <div class="metric-card p-4">
+          <div class="metric-icon"><i class="bi bi-bullseye"></i></div>
+          <h3 class="fw-bold text-info counter" data-target="99.2">0%</h3>
+          <p class="text-secondary">Detection Accuracy</p>
+        </div>
+      </div>
+
+      <!-- Metric 2 -->
+      <div class="col-md-3 col-6">
+        <div class="metric-card p-4">
+          <div class="metric-icon"><i class="bi bi-shield-check"></i></div>
+          <h3 class="fw-bold text-info counter" data-target="98.5">0%</h3>
+          <p class="text-secondary">Precision Rate</p>
+        </div>
+      </div>
+
+      <!-- Metric 3 -->
+      <div class="col-md-3 col-6">
+        <div class="metric-card p-4">
+          <div class="metric-icon"><i class="bi bi-lightning-charge"></i></div>
+          <h3 class="fw-bold text-info counter" data-target="97.8">0%</h3>
+          <p class="text-secondary">Recall Rate</p>
+        </div>
+      </div>
+
+      <!-- Metric 4 -->
+      <div class="col-md-3 col-6">
+        <div class="metric-card p-4">
+          <div class="metric-icon"><i class="bi bi-graph-up"></i></div>
+          <h3 class="fw-bold text-info counter" data-target="100">0%</h3>
+          <p class="text-secondary">Uptime Reliability</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Bars -->
+    <div class="mt-5 text-start">
+      <div class="progress-group mb-4">
+        <label class="text-light fw-bold mb-2">Model Confidence</label>
+        <div class="progress">
+          <div class="progress-bar bg-info progress-animate" style="width: 0%;" data-width="99%"></div>
+        </div>
+      </div>
+
+      <div class="progress-group mb-4">
+        <label class="text-light fw-bold mb-2">Spam Detection Coverage</label>
+        <div class="progress">
+          <div class="progress-bar bg-info progress-animate" style="width: 0%;" data-width="98%"></div>
+        </div>
+      </div>
+
+      <div class="progress-group">
+        <label class="text-light fw-bold mb-2">Real-Time Response Speed</label>
+        <div class="progress">
+          <div class="progress-bar bg-info progress-animate" style="width: 0%;" data-width="96%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 🎨 STYLES -->
+<style>
+  .accuracy {
+    background: linear-gradient(180deg, #050a14 0%, #000 100%);
+  }
+
+  .metric-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .metric-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px rgba(0, 198, 255, 0.3);
+    border-color: #00c6ff;
+  }
+
+  .metric-icon {
+    font-size: 2.5rem;
+    color: #00c6ff;
+    margin-bottom: 1rem;
+  }
+
+  .counter {
+    font-size: 2.2rem;
+  }
+
+  .progress {
+    height: 0.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    transition: width 2s ease-in-out;
+  }
+</style>
+
+<!-- ⚙️ COUNTER + PROGRESS ANIMATION SCRIPT -->
+<script>
+  // Counter Animation
+  const counters = document.querySelectorAll('.counter');
+  counters.forEach(counter => {
+    const updateCount = () => {
+      const target = +counter.getAttribute('data-target');
+      const count = +counter.innerText.replace('%', '');
+      const speed = 30; // smaller = faster
+      if (count < target) {
+        counter.innerText = (count + 0.2).toFixed(1) + '%';
+        setTimeout(updateCount, speed);
+      } else {
+        counter.innerText = target + '%';
+      }
+    };
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        updateCount();
+        observer.disconnect();
+      }
+    });
+    observer.observe(counter);
+  });
+
+  // Progress Bar Animation
+  const bars = document.querySelectorAll('.progress-animate');
+  const barObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target;
+        bar.style.width = bar.getAttribute('data-width');
+        barObserver.unobserve(bar);
+      }
+    });
+  });
+  bars.forEach(bar => barObserver.observe(bar));
+</script>
+
+
+<!-- 💬 TESTIMONIALS SECTION -->
+<section class="testimonials py-5 text-light text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-4 text-info">What <span class="text-light">Users Say</span></h2>
+    <p class="text-secondary mb-5 fs-5">Trusted by developers, businesses, and individuals who rely on SpamGuard every day.</p>
+
+    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+
+        <!-- Testimonial 1 -->
+        <div class="carousel-item active">
+          <div class="testimonial-card mx-auto p-4">
+            <div class="user-img mb-3">
+              <img src="https://i.pravatar.cc/100?img=1" alt="User 1" class="rounded-circle shadow">
+            </div>
+            <p class="fst-italic text-secondary">“SpamGuard has reduced spam in our customer inboxes by 95%. The accuracy and speed are incredible.”</p>
+            <h5 class="mt-3 fw-bold text-info">Sarah Khan</h5>
+            <p class="text-muted small">CTO @ MailProtect</p>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="carousel-item">
+          <div class="testimonial-card mx-auto p-4">
+            <div class="user-img mb-3">
+              <img src="https://i.pravatar.cc/100?img=2" alt="User 2" class="rounded-circle shadow">
+            </div>
+            <p class="fst-italic text-secondary">“Integrating SpamGuard into our chat app was effortless. Our users immediately noticed fewer fake messages.”</p>
+            <h5 class="mt-3 fw-bold text-info">David Lee</h5>
+            <p class="text-muted small">Founder @ ChatterBox</p>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="carousel-item">
+          <div class="testimonial-card mx-auto p-4">
+            <div class="user-img mb-3">
+              <img src="https://i.pravatar.cc/100?img=3" alt="User 3" class="rounded-circle shadow">
+            </div>
+            <p class="fst-italic text-secondary">“Finally an AI spam filter that just works. The dashboard is intuitive, and the detection is spot-on.”</p>
+            <h5 class="mt-3 fw-bold text-info">Emily Rodriguez</h5>
+            <p class="text-muted small">Security Analyst</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Carousel Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ✨ STYLES -->
+<style>
+  .testimonials {
+    background: radial-gradient(circle at center, #060b15 0%, #000 100%);
+    padding-top: 100px; /* ✅ Added: Keeps top space below navbar */
+    scroll-margin-top: 100px; /* ✅ Prevents jump cut when clicked/linked */
+  }
+
+  .testimonial-card {
+    max-width: 700px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    backdrop-filter: blur(8px);
+    transition: all 0.4s ease;
+    margin-top: 10px; /* ✅ slight space for smooth transition */
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(0, 198, 255, 0.3);
+    border-color: #00c6ff;
+  }
+
+  .user-img img {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #00c6ff;
+    object-fit: cover;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: rgba(0, 198, 255, 0.6);
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .testimonial-card { padding: 1.5rem; }
+    .user-img img { width: 70px; height: 70px; }
+  }
+</style>
+
+
+  <style>
+    .btn-info:hover {
+      background-color: #00d4ff !important;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+    }
+  </style>
+</section>
+
+<!-- ❓ FAQ / HELP SECTION -->
+<section class="faq py-5 text-light">
+  <div class="container">
+    <h2 class="fw-bold mb-4 text-center text-info">
+      Frequently Asked <span class="text-light">Questions</span>
+    </h2>
+    <p class="text-secondary text-center mb-5 fs-5">
+      Got questions? We’ve got answers. Here’s everything you need to know about SpamGuard.
+    </p>
+
+    <div class="row align-items-center">
+      <!-- FAQ Content -->
+      <div class="col-lg-7">
+        <div class="accordion" id="faqAccordion">
+          <!-- Question 1 -->
+          <div class="accordion-item faq-item mb-3">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button collapsed fw-semibold" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false"
+                aria-controls="collapseOne">
+                How accurate is SpamGuard’s AI spam detection?
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse"
+              aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-secondary">
+                SpamGuard’s AI model achieves <strong>over 99% accuracy</strong> on real-world
+                test data. It’s continuously retrained with new patterns to stay ahead of spammers.
+              </div>
+            </div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="accordion-item faq-item mb-3">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed fw-semibold" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+                aria-controls="collapseTwo">
+                Is my data safe with SpamGuard?
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse"
+              aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-secondary">
+                Absolutely. All data is <strong>end-to-end encrypted</strong> and processed securely.
+                We never store, sell, or share your messages.
+              </div>
+            </div>
+          </div>
+
+          <!-- Question 3 -->
+          <div class="accordion-item faq-item mb-3">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed fw-semibold" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
+                aria-controls="collapseThree">
+                Can I integrate SpamGuard with my app or website?
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse"
+              aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-secondary">
+                Yes! SpamGuard offers a <strong>RESTful API</strong> for developers. You can integrate
+                it into your application within minutes using our simple documentation.
+              </div>
+            </div>
+          </div>
+
+          <!-- Question 4 -->
+          <div class="accordion-item faq-item">
+            <h2 class="accordion-header" id="headingFour">
+              <button class="accordion-button collapsed fw-semibold" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false"
+                aria-controls="collapseFour">
+                Do you offer enterprise-level customization?
+              </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse"
+              aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-secondary">
+                Yes, our <strong>Enterprise plan</strong> supports full customization — including
+                tailored AI models, analytics dashboards, and dedicated technical support.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Image -->
+      <div class="col-lg-5 text-center mt-4 mt-lg-0">
+        <img src="/static/images/faq1.jpg" alt="FAQ Illustration"
+          class="img-fluid faq-image">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 🎨 FAQ STYLES -->
+<style>
+  .faq {
+    background: radial-gradient(circle at center, #050a14 0%, #000 100%);
+  }
+
+  .faq-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.8rem;
+    overflow: hidden;
+  }
+
+  .accordion-button {
+    background: transparent;
+    color: #fff;
+    box-shadow: none;
+    transition: all 0.3s ease;
+  }
+
+  .accordion-button:not(.collapsed) {
+    color: #00c6ff;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .accordion-button::after {
+    filter: invert(1);
+  }
+
+  .accordion-body {
+    background: rgba(255, 255, 255, 0.03);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .accordion-button:hover {
+    color: #00c6ff;
+  }
+
+  /* Right-side image styling */
+  .faq-image {
+    max-width: 80%;
+    filter: drop-shadow(0 0 25px rgba(0, 198, 255, 0.3));
+    transition: transform 0.4s ease, filter 0.4s ease;
+  }
+
+  .faq-image:hover {
+    transform: scale(1.03);
+    filter: drop-shadow(0 0 35px rgba(0, 198, 255, 0.5));
+  }
+</style>
+
+
+<section class="cta-section text-center py-5 text-light"
+         style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/82/37/35/823735170d433adf154fa5163e72ae6f.jpg');
+                background-size: cover; 
+                background-position: center; 
+                background-repeat: no-repeat;">
+  <div class="container py-5">
+    <h2 class="text-info mb-3 fw-bold">Ready to Detect Spam Like a Pro?</h2>
+    <p class="text-light mb-4 fs-5">
+      Experience lightning-fast spam detection and intelligent insights now.
+    </p>
+    <a href="{{ url_for('form') }}" 
+       class="btn btn-info btn-lg px-5 shadow-lg fw-semibold" 
+       style="border-radius: 30px; transition: 0.3s;">
+       Get Started
+    </a>
+  </div>
+
+  <style>
+    .cta-section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    .btn-info {
+      background-color: #00c6ff;
+      border: 2px solid #00c6ff;
+      color: white;
+      font-weight: 600;
+      padding: 15px 30px;
+      border-radius: 30px;
+      transition: 0.3s ease-in-out;
+    }
+
+    .btn-info:hover {
+      background-color: #00d4ff !important;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+    }
+
+    .btn-info:active {
+      transform: scale(1);
+      box-shadow: none;
+    }
+  </style>
+</section>
+
+<!-- 💸 PRICING / PLANS SECTION -->
+<section class="pricing py-5 text-light text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-4 text-info">Choose Your <span class="text-light">Plan</span></h2>
+    <p class="text-secondary mb-5 fs-5">Whether you’re an individual or an enterprise, SpamGuard has a plan for you. Scale as you grow.</p>
+
+    <div class="row g-4 justify-content-center">
+
+      <!-- FREE PLAN -->
+      <div class="col-md-4">
+        <div class="price-card p-4 h-100">
+          <h5 class="fw-bold mb-3 text-info">Free</h5>
+          <h2 class="fw-bold mb-4">$0<span class="fs-5 text-secondary">/mo</span></h2>
+          <ul class="list-unstyled text-start mb-4">
+            <li><i class="bi bi-check-circle text-info"></i> Basic spam detection</li>
+            <li><i class="bi bi-check-circle text-info"></i> API access (limited)</li>
+            <li><i class="bi bi-x-circle text-secondary"></i> Advanced AI training</li>
+            <li><i class="bi bi-x-circle text-secondary"></i> Team analytics</li>
+          </ul>
+          <a href="#" class="btn btn-outline-info w-100">Get Started</a>
+        </div>
+      </div>
+
+      <!-- PRO PLAN -->
+      <div class="col-md-4">
+        <div class="price-card featured p-4 h-100">
+          <div class="ribbon">Most Popular</div>
+          <h5 class="fw-bold mb-3 text-info">Pro</h5>
+          <h2 class="fw-bold mb-4">$19<span class="fs-5 text-secondary">/mo</span></h2>
+          <ul class="list-unstyled text-start mb-4">
+            <li><i class="bi bi-check-circle text-info"></i> Advanced spam detection</li>
+            <li><i class="bi bi-check-circle text-info"></i> Full API access</li>
+            <li><i class="bi bi-check-circle text-info"></i> Real-time updates</li>
+            <li><i class="bi bi-x-circle text-secondary"></i> Dedicated support</li>
+          </ul>
+          <a href="#" class="btn btn-info w-100 text-light fw-semibold">Upgrade</a>
+        </div>
+      </div>
+
+      <!-- ENTERPRISE PLAN -->
+      <div class="col-md-4">
+        <div class="price-card p-4 h-100">
+          <h5 class="fw-bold mb-3 text-info">Enterprise</h5>
+          <h2 class="fw-bold mb-4">$49<span class="fs-5 text-secondary">/mo</span></h2>
+          <ul class="list-unstyled text-start mb-4">
+            <li><i class="bi bi-check-circle text-info"></i> Custom AI model</li>
+            <li><i class="bi bi-check-circle text-info"></i> Unlimited API calls</li>
+            <li><i class="bi bi-check-circle text-info"></i> Priority support</li>
+            <li><i class="bi bi-check-circle text-info"></i> Enterprise dashboard</li>
+          </ul>
+          <a href="#" class="btn btn-outline-info w-100">Contact Sales</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 🎨 PRICING STYLES -->
+<style>
+  .pricing {
+    background: linear-gradient(180deg, #060b15 0%, #000 100%);
+  }
+
+  .price-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .price-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 30px rgba(0, 198, 255, 0.3);
+    border-color: #00c6ff;
+  }
+
+  .featured {
+    border-color: #00c6ff;
+    box-shadow: 0 0 25px rgba(0, 198, 255, 0.4);
+  }
+
+  .ribbon {
+    position: absolute;
+    top: -12px;
+    right: 16px;
+    background: #00c6ff;
+    color: #000;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  .price-card ul li {
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .btn-outline-info {
+    border-width: 2px;
+  }
+
+  .btn-info:hover {
+    box-shadow: 0 0 25px rgba(0, 198, 255, 0.4);
+  }
+</style>
+
+{% endblock %}

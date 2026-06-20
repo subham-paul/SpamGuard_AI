@@ -1,0 +1,754 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<!-- ===================== 🌠 HERO SECTION ===================== -->
+<section class="about-hero-section text-center text-light">
+  <div class="container d-flex flex-column align-items-center justify-content-center h-100">
+    <h1 class="fw-bold mb-3">
+      About <span class="text-info">SpamGuard AI</span>
+    </h1>
+    <p class="lead mb-4 text-secondary">
+      We’re on a mission to make digital communication safer — combining Artificial Intelligence, Natural Language Processing, 
+      and human-level precision to block unwanted spam and secure your data.
+    </p>
+    <a href="{{ url_for('form') }}" class="btn btn-info btn-lg px-5 fw-semibold shadow-lg explore-btn">
+      Explore the Demo →
+    </a>
+  </div>
+</section>
+
+<style>
+  /* 🌌 ABOUT PAGE HERO */
+  .about-hero-section {
+    position: relative;
+    height: 70vh;
+    background: linear-gradient(rgba(0, 10, 25, 0.8), rgba(0, 0, 0, 0.85)),
+                url('{{ url_for("static", filename="images/ai-cyber-bg.jpg") }}') no-repeat center/cover;
+    overflow: hidden;
+  }
+
+  .about-hero-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(0, 234, 255, 0.12) 2px, transparent 2px);
+    background-size: 40px 40px;
+    animation: floatDots 60s linear infinite;
+    z-index: 0;
+  }
+
+  .about-hero-section .container {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+  }
+
+  .about-hero-section h1 {
+    font-size: 2.6rem;
+    color: #00eaff;
+    text-shadow: 0 0 25px rgba(0, 234, 255, 0.4);
+  }
+
+  .about-hero-section p {
+    font-size: 1.1rem;
+    color: #cce7ff;
+    max-width: 700px;
+  }
+
+  .explore-btn {
+    border-radius: 40px;
+    transition: 0.3s ease-in-out;
+  }
+
+  .explore-btn:hover {
+    background-color: #00d4ff !important;
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
+  }
+
+  @keyframes floatDots {
+    from { transform: translate(0, 0); }
+    to { transform: translate(50px, -50px); }
+  }
+</style>
+
+<!-- ===================== 💎 ABOUT SPAMGUARD SECTION ===================== -->
+<section class="about-section py-5">
+  <div class="container">
+    <div class="row align-items-center justify-content-center gx-5">
+
+      <!-- 🧠 Left Image with Glow Animation -->
+      <div class="col-md-5 mb-4 mb-md-0">
+        <div class="about-img-wrapper" data-aos="fade-right">
+          <img src="{{ url_for('static', filename='images/about-left.jpg') }}" 
+               alt="About SpamGuard AI" 
+               class="about-image img-fluid rounded-4 shadow-lg" />
+        </div>
+      </div>
+
+      <!-- 💬 Right Glass Content -->
+      <div class="col-md-7">
+        <div class="about-glass p-5 text-md-start text-center" data-aos="fade-left">
+          <h2 class="fw-bold text-info mb-3">What is SpamGuard AI?</h2>
+          <p class="text-light fs-5 mb-0">
+            <strong>SpamGuard AI</strong> is a next-generation spam-detection system built with 
+            <span class="text-info fw-semibold">Natural Language Processing (NLP)</span> and 
+            <span class="text-info fw-semibold">Machine Learning</span> technologies.  
+            It rapidly scans and classifies digital messages to keep your inbox safe from phishing, scams, and unwanted content — 
+            all while learning and adapting in real-time.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+/* 💎 SECTION BASE */
+.about-section {
+  background: radial-gradient(circle at top, #03162c 0%, #000a12 90%);
+  color: #eaf6ff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Floating particles effect */
+.about-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0,234,255,0.08) 2px, transparent 2px);
+  background-size: 50px 50px;
+  animation: moveParticles 50s linear infinite;
+  opacity: 0.3;
+}
+@keyframes moveParticles {
+  from { transform: translate(0, 0); }
+  to { transform: translate(60px, -60px); }
+}
+
+/* 🧠 IMAGE STYLE */
+.about-img-wrapper {
+  position: relative;
+}
+.about-image {
+  border-radius: 25px;
+  border: 2px solid rgba(0,234,255,0.35);
+  box-shadow: 0 0 35px rgba(0,234,255,0.25);
+  transition: all 0.6s ease;
+  animation: floatY 6s ease-in-out infinite;
+}
+.about-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 45px rgba(0,234,255,0.5);
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* 💬 GLASS BOX STYLE */
+.about-glass {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 35px rgba(0, 234, 255, 0.15);
+  transition: 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+.about-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,234,255,0.2), transparent 60%);
+  opacity: 0;
+  transition: 0.5s;
+}
+.about-glass:hover::before {
+  opacity: 1;
+}
+.about-glass:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 45px rgba(0,234,255,0.35);
+}
+
+/* ✨ TEXT & ANIMATION */
+.text-info {
+  color: #00eaff !important;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+
+
+
+<!-- ===================== ⚙️ HOW IT WORKS SECTION ===================== -->
+<section class="how-section text-center py-5">
+  <div class="container">
+    <h2 class="fw-bold text-info mb-5">How It Works ⚙️</h2>
+    <div class="row g-4 justify-content-center">
+
+      <!-- Step 1 -->
+      <div class="col-md-4 col-sm-6">
+        <div class="how-card p-4">
+          <img src="{{ url_for('static', filename='images/how-data.jpg') }}" alt="Data Preprocessing">
+          <h5 class="mt-3 text-info fw-semibold">Data Preprocessing</h5>
+          <p class="text-light mb-0">
+            Cleans and transforms text—removing noise, stopwords, and converting words into numerical features for precision learning.
+          </p>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="col-md-4 col-sm-6">
+        <div class="how-card p-4">
+          <img src="{{ url_for('static', filename='images/how-training.jpg') }}" alt="Model Training">
+          <h5 class="mt-3 text-info fw-semibold">Model Training</h5>
+          <p class="text-light mb-0">
+            Trains on thousands of messages using algorithms like <strong>Naïve Bayes</strong> and <strong>TF-IDF</strong> vectorization for high accuracy.
+          </p>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="col-md-4 col-sm-6">
+        <div class="how-card p-4">
+          <img src="{{ url_for('static', filename='images/how-predict.jpg') }}" alt="Real-time Prediction">
+          <h5 class="mt-3 text-info fw-semibold">Real-time Prediction</h5>
+          <p class="text-light mb-0">
+            Instantly classifies messages as spam or safe, using optimized NLP pipelines for lightning-fast inference.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<style>
+/* ⚙️ HOW IT WORKS SECTION */
+  .how-section {
+    background: radial-gradient(circle at top, #021221 0%, #000a12 90%);
+    color: #eaf6ff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Floating particle effect */
+  .how-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(0,234,255,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.25;
+    animation: floatGrid 60s linear infinite;
+  }
+  @keyframes floatGrid {
+    from { transform: translate(0,0); }
+    to { transform: translate(60px,-60px); }
+  }
+
+  /* 🧠 CARD DESIGN */
+  .how-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(0,234,255,0.12);
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    transition: all 0.5s ease;
+    box-shadow: 0 0 18px rgba(0,234,255,0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Neon edge glow effect */
+  .how-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,234,255,0.18), rgba(0,100,255,0.12));
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  /* Hover effect */
+  .how-card:hover::before {
+    opacity: 1;
+  }
+
+  .how-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 0 40px rgba(0,234,255,0.25);
+    border-color: rgba(0,234,255,0.3);
+  }
+
+  /* 🧿 IMAGES */
+  .how-card img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(0,234,255,0.25);
+    box-shadow: 0 0 25px rgba(0,234,255,0.25);
+    transition: all 0.5s ease;
+    background: radial-gradient(circle, rgba(0,234,255,0.08), transparent 70%);
+  }
+
+  /* Image glow hover */
+  .how-card:hover img {
+    transform: scale(1.1);
+    box-shadow: 0 0 40px rgba(0,234,255,0.4);
+    border-color: rgba(0,234,255,0.4);
+  }
+
+  /* ✨ TEXT */
+  .text-info {
+    color: #00eaff !important;
+  }
+
+  .how-card h5 {
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
+  }
+
+  .how-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+  /* 💎 Equal Card Size */
+  .how-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(0, 234, 255, 0.12);
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    transition: all 0.4s ease;
+    box-shadow: 0 0 18px rgba(0, 234, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+    
+    /* 👇 Make all cards equal height */
+    height: 100%;
+    min-height: 360px; /* adjust to your preference */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    padding: 2rem 1.5rem;
+  }
+
+  /* ✨ Keep same glow hover */
+  .how-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 0 40px rgba(0,234,255,0.25);
+    border-color: rgba(0,234,255,0.3);
+  }
+
+  /* 🧿 Image */
+  .how-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 2px solid rgba(0,234,255,0.25);
+    box-shadow: 0 0 25px rgba(0,234,255,0.25);
+    object-fit: cover;
+    background: radial-gradient(circle, rgba(0,234,255,0.08), transparent 70%);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .how-card:hover img {
+    transform: scale(1.1);
+    box-shadow: 0 0 40px rgba(0,234,255,0.4);
+  }
+
+  /* 🔤 Text styling */
+  .how-card h5 {
+    color: #00eaff;
+    font-weight: 600;
+    margin-top: 1.2rem;
+    font-size: 1.2rem;
+  }
+
+  .how-card p {
+    color: #d6eaff;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-top: 0.5rem;
+    opacity: 0.85;
+    flex-grow: 1; /* ensures even height balance */
+  }
+
+  /* ⚙️ Row alignment */
+  .row.g-4 {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .row.g-4 > [class*="col-"] {
+    display: flex;
+  }
+
+
+  /* Animation */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<!-- ===================== 🧭 PROJECT DEVELOPMENT JOURNEY ===================== -->
+<section class="timeline-section py-5">
+  <div class="container position-relative">
+    <div class="row align-items-center">
+      
+      <!-- 📝 LEFT SIDE — TEXT TIMELINE -->
+      <div class="col-lg-6 col-md-12">
+        <h2 class="fw-bold text-info mb-5 text-start">Project Development Journey 🧭</h2>
+
+        <div class="timeline">
+          <!-- Step 1 -->
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h5 class="text-info">Data Gathering</h5>
+              <p class="text-secondary mb-0">
+                Collected and cleaned thousands of labeled spam/ham messages from trusted open datasets such as <strong>Kaggle</strong>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h5 class="text-info">Model Training</h5>
+              <p class="text-secondary mb-0">
+                Built NLP models using <strong>Naïve Bayes</strong> and <strong>TF-IDF</strong> to achieve over 99% detection accuracy.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h5 class="text-info">Flask Integration</h5>
+              <p class="text-secondary mb-0">
+                Integrated the trained model into a <strong>Flask API</strong> for real-time predictions via web interface.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h5 class="text-info">UI Enhancement</h5>
+              <p class="text-secondary mb-0">
+                Designed a clean, responsive, and futuristic UI using glassmorphism and modern Bootstrap elements.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h5 class="text-info">Deployment</h5>
+              <p class="text-secondary mb-0">
+                Optimized performance and deployed SpamGuard AI on secure cloud hosting for global accessibility.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🤖 RIGHT SIDE — TWO LARGE IMAGES -->
+      <div class="col-lg-6 col-md-12 position-relative text-center d-none d-lg-block">
+        <img src="{{ url_for('static', filename='images/journey-ai-lab.jpg') }}" 
+             alt="AI Lab Development" class="journey-img img-top">
+        <img src="{{ url_for('static', filename='images/journey-deployment.jpg') }}" 
+             alt="AI Deployment Concept" class="journey-img img-bottom">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+/* 🌌 SECTION BACKGROUND */
+.timeline-section {
+  background: radial-gradient(circle at top, #021427, #000910 85%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 🧭 TIMELINE BASE */
+.timeline {
+  position: relative;
+  padding-left: 40px;
+  max-width: 600px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 18px;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, #00eaff, #007bff);
+  border-radius: 5px;
+}
+
+.timeline-step {
+  position: relative;
+  margin-bottom: 35px;
+  animation: fadeUp 1s ease forwards;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -2px;
+  top: 5px;
+  width: 14px;
+  height: 14px;
+  background: #00eaff;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(0,234,255,0.7);
+}
+
+.timeline-content {
+  background: rgba(255, 255, 255, 0.07);
+  padding: 20px 25px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: 0.3s;
+}
+
+.timeline-content:hover {
+  transform: translateX(5px);
+  box-shadow: 0 0 25px rgba(0,234,255,0.3);
+}
+
+/* 🤖 RIGHT SIDE TWO BIG FLOATING IMAGES */
+.journey-img {
+  position: absolute;
+  right: -10px;
+  width: 360px;
+  height: auto;
+  border-radius: 24px;
+  object-fit: cover;
+  filter: drop-shadow(0 0 35px rgba(0,234,255,0.5));
+  opacity: 0.95;
+  transition: all 0.6s ease;
+}
+
+.journey-img.img-top {
+  top: 60px;
+  animation: floatY 7s ease-in-out infinite;
+}
+
+.journey-img.img-bottom {
+  bottom: 60px;
+  animation: floatY 9s ease-in-out infinite reverse;
+}
+
+.journey-img:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 60px rgba(0,234,255,0.8));
+}
+
+/* ✨ ANIMATIONS */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+
+<!-- ===================== 👨‍💻 MEET THE DEVELOPER ===================== -->
+<section class="developer-section section py-5">
+  <div class="container">
+    <div class="row align-items-center justify-content-center">
+      
+      <!-- LEFT: Developer Image -->
+      <div class="col-lg-5 col-md-6 mb-4 mb-md-0 text-center">
+        <div class="dev-image-wrapper">
+          <img src="{{ url_for('static', filename='images/shayam.jpeg') }}" 
+               alt="Developer" class="img-fluid dev-image">
+        </div>
+      </div>
+
+      <!-- RIGHT: Developer Info Card -->
+      <div class="col-lg-6 col-md-6">
+        <div class="dev-info text-start">
+          <h2 class="fw-bold text-info mb-3">Shayam Pal</h2>
+          <h5 class="text-light mb-3">Python Developer | Machine Learning Intern | Tech Explorer</h5>
+
+          <p class="text-light mb-3">
+            👋 Hi there! I’m <strong>Shayam Pal</strong>, a passionate developer dedicated to creating
+            intelligent, data-driven solutions using Python, Flask, and Machine Learning.
+            I built <span style="color:#00eaff;">SpamGuard AI</span> to empower safer digital communication
+            through transparent and explainable AI.
+          </p>
+
+          <div class="socials mt-4">
+            <a href="https://www.linkedin.com/in/shayam-pal" target="_blank"><i class="bi bi-linkedin"></i></a>
+            <a href="https://github.com/shayampal" target="_blank"><i class="bi bi-github"></i></a>
+            <a href="mailto:shayampalofficial@gmail.com"><i class="bi bi-envelope-fill"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* 👨‍💻 DEVELOPER SECTION */
+  .developer-section {
+    background: radial-gradient(circle at bottom, #010d1c, #000910 90%);
+    color: #eaf6ff;
+    overflow: hidden;
+  }
+
+  /* Image Styling */
+  .dev-image-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .dev-image {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 20px;
+    border: 2px solid rgba(0, 234, 255, 0.3);
+    box-shadow: 0 0 25px rgba(0, 234, 255, 0.1);
+    transition: all 0.4s ease;
+  }
+
+  .dev-image:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 45px rgba(0, 234, 255, 0.3);
+  }
+
+  /* Info Card */
+  .dev-info {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 30px rgba(0, 234, 255, 0.1);
+    transition: all 0.4s ease;
+  }
+
+  .dev-info:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 40px rgba(0, 234, 255, 0.35);
+  }
+
+  /* Social Icons */
+  .socials a {
+    color: #00eaff;
+    font-size: 1.6rem;
+    margin-right: 15px;
+    transition: all 0.3s ease;
+  }
+
+  .socials a:hover {
+    color: #fff;
+    transform: scale(1.25);
+  }
+
+  @media (max-width: 991px) {
+    .developer-section .row {
+      text-align: center;
+    }
+    .dev-info {
+      margin-top: 25px;
+    }
+  }
+</style>
+
+
+
+<!-- ===================== 🌌 CALL TO ACTION SECTION ===================== -->
+<section class="cta-section text-center py-5">
+  <div class="cta-overlay"></div>
+  <div class="container position-relative">
+    <h2 class="fw-bold mb-3 text-info">Experience the Future of Inbox Safety 🚀</h2>
+    <p class="text-light fs-5 mb-4">
+      Try <strong>SpamGuard AI</strong> — your intelligent companion for secure, spam-free communication.
+    </p>
+    <a href="{{ url_for('form') }}" class="btn btn-cta">Get Started →</a>
+  </div>
+</section>
+
+<style>
+  /* 🌌 CTA SECTION STYLE */
+  .cta-section {
+    background: url('{{ url_for("static", filename="images/bg-cyberblue.jpg") }}') no-repeat center/cover;
+    position: relative;
+    color: #fff;
+    overflow: hidden;
+  }
+
+  .cta-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 10, 25, 0.85);
+    backdrop-filter: blur(4px);
+    z-index: 1;
+  }
+
+  .cta-section .container {
+    position: relative;
+    z-index: 2;
+    animation: fadeUp 1s ease forwards;
+  }
+
+  .btn-cta {
+    background: linear-gradient(90deg, #00eaff, #007bff);
+    color: white;
+    padding: 12px 45px;
+    border-radius: 50px;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: 0.3s;
+    animation: pulse 2.5s infinite;
+  }
+
+  .btn-cta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 234, 255, 0.7);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 234, 255, 0.6); }
+    70% { box-shadow: 0 0 0 20px rgba(0, 234, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 234, 255, 0); }
+  }
+</style>
+
+{% endblock %}
